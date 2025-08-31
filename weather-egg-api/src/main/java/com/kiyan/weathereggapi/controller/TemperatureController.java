@@ -1,0 +1,29 @@
+package com.kiyan.weathereggapi.controller;
+
+import com.kiyan.weathereggapi.entity.Temperature;
+import com.kiyan.weathereggapi.service.TemperatureService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class TemperatureController {
+    private final TemperatureService temperatureService;
+
+    public TemperatureController(TemperatureService temperatureService) {
+        this.temperatureService = temperatureService;
+    }
+
+    @PostMapping("/temperature")
+    public void uploadTemperature(@RequestBody Temperature temperature) {
+        System.out.println(temperature);
+        temperatureService.uploadTemperature(temperature);
+    }
+
+    @GetMapping("/temperature")
+    public float getTemperature() {
+        System.out.println("Getting temperature");
+        return temperatureService.getTemperature();
+    }
+}

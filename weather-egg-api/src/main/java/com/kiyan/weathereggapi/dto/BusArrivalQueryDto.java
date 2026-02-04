@@ -1,6 +1,9 @@
 package com.kiyan.weathereggapi.dto;
 
-public class BusArrivalQuery {
+import lombok.Getter;
+
+@Getter
+public class BusArrivalQueryDto {
     private int busStopCode;
-    private int serviceNo;
+    private int serviceNumber;
 }

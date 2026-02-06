@@ -21,7 +21,7 @@ public class TemperatureController {
     }
 
     @GetMapping("/temperature")
-    public float getTemperature(q) {
+    public float getTemperature() {
         System.out.println("Getting temperature");
         return temperatureService.getTemperature();
     }

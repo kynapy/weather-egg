@@ -15,7 +15,13 @@ interface BusTiming {
 
 interface BusTimingResponse {
   BusStopCode: string;
-  Services: Array<BusTiming>;
+  Services?: Array<{
+    ServiceNo: string;
+    Operator: string;
+    NextBus: BusTiming;
+    NextBus2: BusTiming;
+    NextBus3: BusTiming;
+  }>;
 }
 
 export type { BusTiming, BusTimingResponse };

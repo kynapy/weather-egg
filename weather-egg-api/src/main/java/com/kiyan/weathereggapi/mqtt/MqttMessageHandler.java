@@ -11,7 +11,6 @@ import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
-// TODO: Add logging
 @Component
 public class MqttMessageHandler {
     private final ObjectMapper objectMapper;

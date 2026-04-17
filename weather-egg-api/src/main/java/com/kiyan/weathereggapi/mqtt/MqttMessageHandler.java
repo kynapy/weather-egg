@@ -28,7 +28,7 @@ public class MqttMessageHandler {
         String payload = message.getPayload();
 
         try {
-            LOGGER.info("Received on topic [{}  ]: {}", topic, payload);
+            LOGGER.info("Received on topic [{}]: {}", topic, payload);
             TemperatureDto temperatureDto = objectMapper.readValue(payload, TemperatureDto.class);
             temperatureService.uploadTemperature(temperatureDto);
         } catch (JsonProcessingException e) {

@@ -17,5 +17,4 @@ public class TemperatureEntity {
     private LocalDateTime timestamp;
     private float temperature;
     private float humidity;
-
 }

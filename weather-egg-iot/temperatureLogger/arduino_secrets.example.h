@@ -1,4 +1,4 @@
-# WIFI SECRET
+// WIFI SECRET
 #define SECRET_SSID ""
 #define SECRET_PASS ""
 

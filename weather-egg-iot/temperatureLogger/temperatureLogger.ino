@@ -1,6 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <PubSubClient.h>
+#include <DHT.h>
 #include "arduino_secrets.h"
 
 const char* ssid = SECRET_SSID;
@@ -15,10 +16,15 @@ const unsigned long FIVE_MINS = ONE_MIN * 5;
 WiFiClient espClient;
 PubSubClient client(espClient);
 
+#define DHTTYPE DHT11
+#define DHTPIN 13
+DHT dht(DHTPIN, DHTTYPE);
+
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   connectToWifi();
   connectToMqtt();
+  dht.begin();
 }
 
 void connectToWifi() {
@@ -51,16 +57,35 @@ void connectToMqtt() {
 
 void loop() {
   Serial.println("Device is running");
+  delay(60000); // 1 min delay
+  
+  // Read from DHT
+  float humidity = dht.readHumidity();
+  float temperature = round(dht.readTemperature() * 10.0) / 10.0;
+  if (isnan(humidity) || isnan(temperature)) {
+    Serial.println("Failed to read from DHT sensor");
+  }
+  
   client.loop();
 
   // Send to MQTT
   if (client.connected()) {
     Serial.printf("Publishing to %s\n", topic);
-    char payload[] = "{\"temperature\": \"25\", \"humidity\": \"20\"}"; // TOOD: Add sensor and replace placeholder code
+    char payload[50];
+    snprintf(payload, sizeof(payload), "{\"temperature\": \"%f\", \"humidity\": \"%f\"}", round(temperature * 10.0) / 10.0, humidity);
     client.publish(topic, payload);
+    Serial.print("Sent data: ");
+    Serial.println(payload);
   } else {
     Serial.println("Disconnected from MQTT broker");
-  }
+    connectToMqtt();
 
-  delay(10000);
+    // TODO: Fix disconnection from extended wait / connect only when send
+    Serial.printf("Retry publishing to %s\n", topic);
+    char payload[60];
+    snprintf(payload, sizeof(payload), "{\"temperature\": \"%f\", \"humidity\": \"%f\"}", round(temperature * 10.0) / 10.0, humidity);
+    client.publish(topic, payload);
+    Serial.print("Sent data: ");
+    Serial.println(payload);
+  }
 }

@@ -1,11 +1,9 @@
 package com.kiyan.weathereggapi.controller;
 
 import com.kiyan.weathereggapi.dto.TemperatureDto;
+import com.kiyan.weathereggapi.entity.TemperatureEntity;
 import com.kiyan.weathereggapi.service.TemperatureService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TemperatureController {
@@ -21,7 +19,17 @@ public class TemperatureController {
     }
 
     @GetMapping("/temperature")
-    public float getTemperature() {
+    public float getLatestTemperature() {
         return temperatureService.getTemperature();
+    }
+
+    @GetMapping("/current-weather")
+    public TemperatureEntity getLatestWeather() {
+        return temperatureService.getLatestWeather();
+    }
+
+    @GetMapping("/weather")
+    public TemperatureEntity getWeatherDetails(@RequestParam("pastDays") int numDays) {
+        return temperatureService.getTempAndHumidityOfPastXDays(numDays);
     }
 }

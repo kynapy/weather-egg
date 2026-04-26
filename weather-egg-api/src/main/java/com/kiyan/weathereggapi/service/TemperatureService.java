@@ -26,4 +26,17 @@ public class TemperatureService {
     public float getTemperature() {
         return temperatureRepository.findFirstByOrderByTimestampDesc().getTemperature();
     }
+
+    public TemperatureEntity getLatestWeather() {
+        return temperatureRepository.findFirstByOrderByTimestampDesc();
+    }
+
+    public TemperatureEntity getTempAndHumidityOfPastXDays(int numDays) {
+        if (numDays <= 0) {
+            return null;
+        }
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime lastUpdate = now.minusDays(numDays);
+        return temperatureRepository.findByTimestampAfterOrderByTimestampDesc(lastUpdate);
+    }
 }

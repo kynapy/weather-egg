@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { getBusTiming } from "../services/LtaBusApiServices";
 
 interface BusCardProps {
@@ -9,36 +8,28 @@ interface BusCardProps {
 const BusCard = async ({ busStopCode, serviceNumber }: BusCardProps) => {
   const busTiming = await getBusTiming(busStopCode, serviceNumber);
 
-  return (
-    <Box>
-      {busTiming ? (
-        <Box
-          sx={{
-            padding: "20px 20px",
-            color: "black",
-            borderRadius: "5px",
-            whiteSpace: "pre-line",
-          }}
-        >
-          {busTiming["Services"] ? (
-            <div>
-              Bus Stop: {"\n"}
-              Bus Number: {busTiming["Services"][0]["ServiceNo"] + "\n"}
-              Arrival time:{" "}
-              {busTiming["Services"][0]["NextBus"]["EstimatedArrival"] + "\n"}
-              Arrival time 2:{" "}
-              {busTiming["Services"][0]["NextBus2"]["EstimatedArrival"] + "\n"}
-              Arrival time 3:{" "}
-              {busTiming["Services"][0]["NextBus3"]["EstimatedArrival"] + "\n"}
-            </div>
-          ) : (
-            <div></div>
-          )}
-        </Box>
+  return busTiming ? (
+    <div
+      style={{ backgroundColor: "#616161", whiteSpace: "pre-line" }}
+      className="h-40 w-80 rounded-xl p-6 text-white shadow-sm"
+    >
+      {busTiming["Services"] && busTiming["Services"]?.length != 0 ? (
+        <div>
+          Bus Stop: {"\n"}
+          Bus Number: {serviceNumber + "\n"}
+          Arrival time:{" "}
+          {busTiming["Services"][0]["NextBus"]["EstimatedArrival"] + "\n"}
+          Arrival time 2:{" "}
+          {busTiming["Services"][0]["NextBus2"]["EstimatedArrival"] + "\n"}
+          Arrival time 3:{" "}
+          {busTiming["Services"][0]["NextBus3"]["EstimatedArrival"] + "\n"}
+        </div>
       ) : (
-        <Box />
+        <div>No {serviceNumber} buses running currently</div>
       )}
-    </Box>
+    </div>
+  ) : (
+    <></>
   );
 };
 

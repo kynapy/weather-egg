@@ -6,13 +6,13 @@ const WeatherCard = async () => {
 
   return (
     <div
-      className="p-6 rounded-xl h-40 shadow-sm text-white text-center mx-auto"
-      style={{ backgroundColor: "#616161" }}
+      className="p-4 pl-10 rounded-xl shadow-sm text-white w-full"
+      style={{ backgroundColor: "#61616180" }}
     >
-      <p>Temperature: {weatherData.temperature}°C</p>
+      <p className="text-4xl font-bold">{weatherData.temperature}°C</p>
       <p>Humidity: {weatherData.humidity}%</p>
       {/* TODO: Change date time formatting */}
-      <p>Last updated: {new Date(weatherData.timestamp).toTimeString()}</p>
+      <p>Last updated: 8h ago</p>
     </div>
   );
 };

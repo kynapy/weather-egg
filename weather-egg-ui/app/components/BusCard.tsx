@@ -8,10 +8,10 @@ interface BusCardProps {
 const BusCard = async ({ busStopCode, serviceNumber }: BusCardProps) => {
   const busTiming = await getBusTiming(busStopCode, serviceNumber);
 
-  return busTiming ? (
+  return (
     <div
-      style={{ backgroundColor: "#616161", whiteSpace: "pre-line" }}
-      className="h-40 w-80 rounded-xl p-6 text-white shadow-sm"
+      style={{ backgroundColor: "#61616180", whiteSpace: "pre-line" }}
+      className="rounded-xl p-4 text-white shadow-sm text-center w-full"
     >
       {busTiming["Services"] && busTiming["Services"]?.length != 0 ? (
         <div>
@@ -28,8 +28,6 @@ const BusCard = async ({ busStopCode, serviceNumber }: BusCardProps) => {
         <div>No {serviceNumber} buses running currently</div>
       )}
     </div>
-  ) : (
-    <></>
   );
 };
 

@@ -1,7 +1,7 @@
 package com.kiyan.weathereggapi.service;
 
-import com.kiyan.weathereggapi.entity.TemperatureEntity;
-import com.kiyan.weathereggapi.repository.TemperatureRepository;
+import com.kiyan.weathereggapi.entity.WeatherEntity;
+import com.kiyan.weathereggapi.repository.WeatherRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,28 +15,28 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class TemperatureServiceTest {
+public class WeatherServiceTest {
     @Mock
-    private TemperatureRepository temperatureRepository;
+    private WeatherRepository weatherRepository;
 
     @InjectMocks
-    private TemperatureService temperatureService;
+    private WeatherService weatherService;
 
     @Test
     void getLatestWeather_ShouldReturnValidaData() {
-        TemperatureEntity fakeWeather = new TemperatureEntity();
+        WeatherEntity fakeWeather = new WeatherEntity();
         fakeWeather.setTimestamp(LocalDateTime.now());
         fakeWeather.setTemperature(25.5f);
         fakeWeather.setHumidity(60.5f);
 
-        when(temperatureRepository.findFirstByOrderByTimestampDesc())
+        when(weatherRepository.findFirstByOrderByTimestampDesc())
                 .thenReturn(fakeWeather);
 
-        TemperatureEntity result = temperatureService.getLatestWeather();
+        WeatherEntity result = weatherService.getLatestWeather();
         assertNotNull(result);
         assertEquals(25.5f, result.getTemperature());
         assertEquals(60.5f, result.getHumidity());
 
-        verify(temperatureRepository, times(1)).findFirstByOrderByTimestampDesc();
+        verify(weatherRepository, times(1)).findFirstByOrderByTimestampDesc();
     }
 }

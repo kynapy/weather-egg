@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name = "Temperature")
-public class TemperatureEntity {
+@Table(name = "Weather")
+public class WeatherEntity {
     @Id
     private LocalDateTime timestamp;
     private float temperature;

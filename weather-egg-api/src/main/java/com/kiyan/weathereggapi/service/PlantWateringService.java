@@ -25,7 +25,7 @@ public class PlantWateringService {
     }
 
     public LastWaterResponse getLastWatering() {
-        PlantWateringEntity plantWateringEntity = plantWateringRepository.findFirstOrderByWateringTimeDesc();
+        PlantWateringEntity plantWateringEntity = plantWateringRepository.findFirstByOrderByWateringTimeDesc();
         return new LastWaterResponse(plantWateringEntity.getWaterAmount(), plantWateringEntity.getWateringTime());
     }
 }

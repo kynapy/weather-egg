@@ -13,7 +13,7 @@ public class WaterTrackingService {
     }
 
     public float getRemainingWater() {
-        return waterTrackingRepository.findFirstOrderByTimestampDesc().getWaterAmount();
+        return waterTrackingRepository.findFirstByOrderByTimestampDesc().getWaterAmount();
     }
 
     public void uploadWaterAmount(WaterTrackingEntity waterTrackingEntity) {

@@ -5,7 +5,7 @@ import com.kiyan.weathereggapi.entity.WeatherEntity;
 import com.kiyan.weathereggapi.repository.WeatherRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Service
 public class WeatherService {
@@ -19,7 +19,7 @@ public class WeatherService {
         WeatherEntity weatherEntity = new WeatherEntity();
         weatherEntity.setTemperature(weatherDto.temperature());
         weatherEntity.setHumidity(weatherDto.humidity());
-        weatherEntity.setTimestamp(LocalDateTime.now());
+        weatherEntity.setTimestamp(OffsetDateTime.now());
         weatherRepository.save(weatherEntity);
     }
 
@@ -31,8 +31,8 @@ public class WeatherService {
         if (numDays <= 0) {
             return null;
         }
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime lastUpdate = now.minusDays(numDays);
+        OffsetDateTime now = OffsetDateTime.now();
+        OffsetDateTime lastUpdate = now.minusDays(numDays);
         return weatherRepository.findByTimestampAfterOrderByTimestampDesc(lastUpdate);
     }
 }

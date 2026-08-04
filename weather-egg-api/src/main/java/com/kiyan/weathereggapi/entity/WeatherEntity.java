@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Getter
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Table(name = "Weather")
 public class WeatherEntity {
     @Id
-    private LocalDateTime timestamp;
+    private OffsetDateTime timestamp;
     private float temperature;
     private float humidity;
 }

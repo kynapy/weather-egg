@@ -8,7 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -25,7 +25,7 @@ public class WeatherServiceTest {
     @Test
     void getLatestWeather_ShouldReturnValidaData() {
         WeatherEntity fakeWeather = new WeatherEntity();
-        fakeWeather.setTimestamp(LocalDateTime.now());
+        fakeWeather.setTimestamp(OffsetDateTime.now());
         fakeWeather.setTemperature(25.5f);
         fakeWeather.setHumidity(60.5f);
 
